@@ -3,14 +3,6 @@ name: Build and Push Docker Image
 on:
   push:
     branches: [main]
-    paths:
-      - '**.py'
-      - 'Dockerfile'
-      - 'requirements.txt'
-      - 'src/**'
-      - 'docker-image.yml'
-      - '.dockerignore'
-      - '!run-training.yml'  # Exclude the training workflow file
 
 jobs:
   build-and-push:
