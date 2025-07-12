@@ -1,0 +1,10 @@
+training-venv
+.env
+__pycache__/
+*.pyc
+logs/
+*.log
+*.ipynb_checkpoints
+*.safetensors
+
+*ipynb

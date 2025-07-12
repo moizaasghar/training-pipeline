@@ -1,0 +1,9 @@
+transformers
+datasets
+torch
+scikit-learn
+accelerate
+wandb
+ipywidgets
+evaluate
+python-dotenv
