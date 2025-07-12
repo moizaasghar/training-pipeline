@@ -4,7 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - '!run-training.yml' # Exclude training workflow file
+      - '**.py'
+      - 'Dockerfile'
+      - 'requirements.txt'
+      - 'src/**'
+      - 'docker-image.yml'
+      - '.dockerignore'
+      - '!run-training.yml'  # Exclude the training workflow file
 
 jobs:
   build-and-push:
