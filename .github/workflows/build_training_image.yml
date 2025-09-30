@@ -1,0 +1,24 @@
+name: Build Training Image
+
+on: # when to trigger the workflow
+    push: # when code is pushed to a branch
+        branches: [main] # only on the main branch
+
+jobs: # define the jobs to be run
+  build-and-push:
+    runs-on: ubuntu-latest # use the latest Ubuntu runner
+
+    steps:
+        - name: Checkout Code
+          uses: actions/checkout@v3
+
+        - name: Log in to Docker hub
+          run: echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u "${{secrets.DOCKER_USERNAME}}" --password-stdin
+
+        - name: Build the Image
+          run: docker build -t ${{secrets.DOCKER_USERNAME}}/tiny-bert-sent-model:latest . # moizaasghar/tiny-bert-sent-model:latest
+        
+        - name: Push Docker Image on Docker hub
+          run: docker push ${{secrets.DOCKER_USERNAME}}/tiny-bert-sent-model:latest
+
+
