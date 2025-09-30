@@ -1,0 +1,33 @@
+name: Train the Model
+
+on:
+    workflow_dispatch:
+        inputs:
+            dataset:
+                description: Training Data
+                required: true
+                default: moizasghar/imdb-small-5k
+            run_name:
+                description: Wandb run name
+                required: true
+                default: test-run
+            testing:
+                description: Run training on complete dataset or not
+                required: true
+                default: "false"
+
+jobs: 
+  train-model:
+    runs-on: ubuntu-latest
+    env:
+        DATASET_NAME: ${{github.event.inputs.dataset}}
+        WANDB_RUN_NAME: ${{github.event.inputs.run_name}}
+        TESTING: ${{github.event.inputs.testing}}
+        WANDB_API_KEY: ${{secrets.WANDB_API_KEY}}
+
+    steps:
+        - name: Pull the docker image
+          run: docker pull moizaasghar/tiny-bert-sent-model
+
+        - name: Run the training
+          run: docker run -e DATASET_NAME=$DATASET_NAME -e WANDB_RUN_NAME=$WANDB_RUN_NAME -e TESTING=$TESTING -e WANDB_API_KEY=$WANDB_API_KEY moizaasghar/tiny-bert-sent-model
